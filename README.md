@@ -16,5 +16,14 @@ An AI-powered research assistant that automates the process of reading, analyzin
 
 - Python
 - PyMuPDF
+- 
+### Sample Output
 
-### Project Structure
+
+FILE : 1706.03762v7.pdf
+TITLE: Attention Is All You Need
+PAGES: 15
+
+## Author
+
+Pritish Dutta
