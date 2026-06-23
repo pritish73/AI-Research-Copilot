@@ -1,3 +1,5 @@
+# AUTONOMOUS RESEARCH AGENT
+#
 # PROJECT PIPELINE
 #
 # Day 1:
@@ -6,22 +8,10 @@
 # Day 2:
 # PDF -> Text -> Chunks
 #
-# Day 3:
+# Future:
 # PDF -> Text -> Chunks -> Embeddings
-#
-# Day 4:
-# PDF -> Text -> Chunks -> Embeddings -> Vector DB
-#
-# Day 5:
-# User Question -> Semantic Search -> Relevant Chunks
-#
-# Day 6:
-# Relevant Chunks -> LLM -> Final Answer
-#
-# Final Goal:
-# Build an Autonomous Research Agent that can
-# read papers, compare them, identify research gaps,
-# and answer research-related questions.
+# -> Vector Database -> Semantic Search
+# -> LLM -> Final Answer
 
 import os
 
