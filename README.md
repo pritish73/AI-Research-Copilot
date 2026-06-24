@@ -1,19 +1,18 @@
 # Autonomous Research Agent
 
-An AI-powered research assistant that automates the process of reading, processing, and understanding research papers. The system converts academic documents into searchable semantic representations, forming the foundation for semantic search, Retrieval-Augmented Generation (RAG), literature review generation, and research gap detection.
+An AI-powered research assistant that processes academic research papers and enables semantic search using transformer-based embeddings and vector databases. The system converts research documents into searchable knowledge representations, forming the foundation for Retrieval-Augmented Generation (RAG), literature review automation, and research gap detection.
 
 ## Features
 
-- Extract text from PDF research papers
-- Process multiple papers automatically
-- Split papers into semantic chunks
-- Generate vector embeddings using transformer models
-- Prepare documents for semantic search and RAG workflows
-- Scalable architecture for future multi-agent research systems
+- PDF text extraction using PyMuPDF
+- Automatic document chunking
+- Transformer-based embedding generation
+- FAISS vector database integration
+- Semantic search over research papers
+- Multi-paper knowledge retrieval
+- Scalable architecture for future RAG and agentic workflows
 
-
-
-## Technologies Used
+## Tech Stack
 
 - Python
 - PyMuPDF
@@ -21,40 +20,79 @@ An AI-powered research assistant that automates the process of reading, processi
 - PyTorch
 - FAISS
 - Hugging Face Transformers
+- NumPy
 
-## Project Architecture
+## System Architecture
 
 ```text
 Research Papers (PDFs)
-           ↓
+            ↓
       Text Extraction
-           ↓
-      Text Chunking
-           ↓
-   Embedding Generation
-           ↓
-      Vector Database
-           ↓
-      Semantic Search
-           ↓
-        LLM Layer
-           ↓
-      Research Agent
+            ↓
+        Chunking
+            ↓
+ Embedding Generation
+            ↓
+      FAISS Index
+            ↓
+     Semantic Search
+            ↓
+ Autonomous Research Agent
 ```
 
-## Current Capabilities
+## Current Pipeline
 
-### PDF Processing
-- Read research papers from a local directory
-- Extract raw text from PDF documents
+```text
+PDF
+ ↓
+Text
+ ↓
+Chunks
+ ↓
+Embeddings
+ ↓
+FAISS Vector Database
+ ↓
+Semantic Retrieval
+```
+
+## Implemented Components
+
+### PDF Reader
+Extracts textual content from academic research papers.
 
 ### Chunking Engine
-- Split large research papers into manageable chunks
-- Preserve contextual continuity using overlapping chunks
+Splits large research papers into overlapping chunks for efficient retrieval.
 
 ### Embedding Engine
-- Convert text chunks into dense vector representations
-- Enable semantic understanding and similarity search
+Generates dense semantic vector representations using transformer-based embedding models.
+
+### Vector Database
+Stores embeddings using FAISS for high-performance similarity search.
+
+### Semantic Search
+Retrieves the most relevant research paper chunks based on meaning rather than keyword matching.
+
+## Example Queries
+
+- What is ReAct?
+- How does self-attention work?
+- What are the limitations of Retrieval-Augmented Generation?
+- What is Toolformer?
+
+## Example Workflow
+
+```text
+User Question
+      ↓
+Question Embedding
+      ↓
+FAISS Similarity Search
+      ↓
+Top Relevant Chunks
+      ↓
+Research Insights
+```
 
 ## Project Structure
 
@@ -63,22 +101,24 @@ Autonomous Research Agent/
 │
 ├── papers/
 ├── data/
-│   ├── chunks/
-│   └── embeddings/
+│   └── chunks/
 │
 ├── pdf_reader.py
 ├── chunker.py
 ├── embedder.py
-├── main.py
+├── vector_store.py
+├── paper_search.py
+├── test_embed.py
+├── test_faiss.py
+├── search_test.py
 ├── README.md
 └── .gitignore
 ```
 
-## Future Enhancements
+## Future Roadmap
 
-- FAISS Vector Database Integration
-- Semantic Search Engine
 - Research Paper Question Answering
+- Retrieval-Augmented Generation (RAG)
 - Multi-Paper Comparison
 - Literature Review Generation
 - Research Gap Detection
@@ -87,4 +127,4 @@ Autonomous Research Agent/
 
 ## Author
 
-Pritish Dutta
+**Pritish Dutta**
