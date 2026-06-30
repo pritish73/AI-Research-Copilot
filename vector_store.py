@@ -1,6 +1,20 @@
 import faiss
 import numpy as np
+import faiss
 
+def save_index(index, path):
+
+    faiss.write_index(
+        index,
+        path
+    )
+
+
+def load_index(path):
+
+    return faiss.read_index(
+        path
+    )
 
 def create_faiss_index(embeddings):
 
