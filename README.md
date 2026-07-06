@@ -1,303 +1,288 @@
-# 🧠 Autonomous Research Agent
+# Research Copilot
 
-An AI-powered Research Assistant that can read, understand, retrieve, and answer questions from research papers using Retrieval-Augmented Generation (RAG), FAISS vector search, and a local Llama 3 Large Language Model.
+An AI-powered Research Assistant that helps users interact with research papers using **Retrieval-Augmented Generation (RAG)**. Upload research papers, ask questions in natural language, generate summaries, compare papers, identify research gaps, and create literature reviews.
 
-Instead of keyword matching, the system performs semantic search over research papers, retrieves the most relevant information, and generates context-aware answers with citations.
-
----
-
-# 🚀 Features
-
-✅ Read multiple research papers automatically
-
-✅ Automatic text chunking
-
-✅ Semantic search using Sentence Transformers
-
-✅ FAISS Vector Database
-
-✅ Cached embeddings for faster startup
-
-✅ Cached FAISS index
-
-✅ Local Llama 3 inference using Ollama
-
-✅ Conversational memory
-
-✅ Follow-up question understanding
-
-✅ Context-aware retrieval
-
-✅ Intelligent prompt routing
-
-✅ Literature review generation
-
-✅ Research gap identification
-
-✅ Paper comparison
-
-✅ Research paper summarization
-
-✅ Source attribution
+Built with **FastAPI**, **React**, **FAISS**, **Sentence Transformers**, **Cross-Encoder Reranking**, and **Llama 3 (Ollama)**.
 
 ---
 
-# 🏗️ System Architecture
+## Features
+
+- Upload research papers (PDF)
+- Delete uploaded papers
+- Ask questions about uploaded papers
+- Generate paper summaries
+- Compare multiple research papers
+- Generate literature reviews
+- Identify research gaps
+- Conversational memory for follow-up questions
+- Intent-based routing
+- Semantic search using FAISS
+- Cross-Encoder reranking for improved retrieval
+- Modern React frontend
+- FastAPI backend
+
+---
+
+# Architecture
 
 ```
-                  Research Papers (PDF/TXT)
-                           │
-                           ▼
-                  Text Extraction
-                           │
-                           ▼
-                     Chunking Engine
-                           │
-                           ▼
-               SentenceTransformer
-                     Embeddings
-                           │
-                           ▼
-                   FAISS Vector DB
-                           │
-                           ▼
-                    User Question
-                           │
-                           ▼
-                 Intent Detection
-                           │
-                           ▼
-              Conversation Manager
-                           │
-             ┌─────────────┴─────────────┐
-             │                           │
-      New Question                Follow-up Question
-             │                           │
-             ▼                           ▼
-      FAISS Retrieval          Previous Context
-             │                           │
-             └─────────────┬─────────────┘
-                           ▼
-                  Prompt Construction
-                           │
-                           ▼
-                 Ollama (Llama 3)
-                           │
-                           ▼
-                     Final Answer
+                 User
+                  │
+                  ▼
+          React Frontend
+                  │
+                  ▼
+           FastAPI Backend
+                  │
+     ┌────────────┼────────────┐
+     ▼            ▼            ▼
+Intent Router   Memory     Paper Manager
+     │
+     ▼
+ Vector Search (FAISS)
+     │
+     ▼
+ Cross Encoder Reranker
+     │
+     ▼
+  Llama 3 (Ollama)
+     │
+     ▼
+ Generated Answer
 ```
 
 ---
 
-# 📂 Project Structure
+# Tech Stack
+
+### Frontend
+
+- React
+- Axios
+- CSS
+
+### Backend
+
+- FastAPI
+- Uvicorn
+- PyMuPDF
+- FAISS
+- NumPy
+
+### AI / ML
+
+- Sentence Transformers
+- Cross Encoder
+- BAAI/bge-base-en-v1.5
+- ms-marco-MiniLM-L-6-v2
+- Ollama
+- Llama 3
+
+---
+
+# Project Structure
 
 ```
-Autonomous-Research-Agent/
+Research-Copilot/
+
 │
-├── data/
+├── backend/
+│   ├── data/
 │   ├── papers/
 │   ├── chunks/
-│   ├── embeddings.npy
-│   └── faiss.index
+│   ├── main.py
+│   ├── database.py
+│   ├── vector_store.py
+│   ├── embedder.py
+│   ├── chunker.py
+│   ├── reranker.py
+│   ├── chat_service.py
+│   ├── conversation_manager.py
+│   ├── intent_router.py
+│   ├── prompts.py
+│   └── ...
 │
-├── embedder.py
-├── vector_store.py
-├── conversation_manager.py
-├── intent_router.py
-├── prompts.py
-├── research_agent.py
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   ├── pages/
+│   └── ...
 │
-├── requirements.txt
 └── README.md
 ```
 
 ---
 
-# 🧠 Supported Query Types
-
-### General Question Answering
+# RAG Pipeline
 
 ```
-What is ReAct?
+PDF Upload
+     │
+     ▼
+Extract Text
+     │
+     ▼
+Chunk Documents
+     │
+     ▼
+Generate Embeddings
+     │
+     ▼
+Store in FAISS
+     │
+     ▼
+User Question
+     │
+     ▼
+Embedding
+     │
+     ▼
+FAISS Retrieval
+     │
+     ▼
+Cross Encoder Reranking
+     │
+     ▼
+Context Selection
+     │
+     ▼
+Llama 3
+     │
+     ▼
+Final Response
 ```
 
 ---
 
-### Literature Review
+# Installation
 
-```
-Generate a literature review on AI Agents
-```
+## Clone the repository
 
----
+```bash
+git clone https://github.com/pritish73/autonomous-research-agent.git
 
-### Comparison
-
-```
-Compare ReAct with Toolformer
+cd autonomous-research-agent
 ```
 
 ---
 
-### Research Gap Analysis
+## Backend
 
-```
-Find research gaps in Retrieval-Augmented Generation
-```
+Create the environment:
 
----
+```bash
+conda create -n research_agent python=3.11
 
-### Summarization
-
-```
-Summarize the ReAct paper
+conda activate research_agent
 ```
 
----
+Install dependencies:
 
-### Follow-up Questions
-
-```
-What is ReAct?
-
-↓
-
-Summarize it.
-
-↓
-
-Compare it with Toolformer.
-
-↓
-
-Which one is better?
+```bash
+pip install -r requirements.txt
 ```
 
-The assistant automatically remembers previous context and resolves follow-up questions without requiring another retrieval step.
+Start Ollama:
+
+```bash
+ollama serve
+```
+
+Download the Llama 3 model:
+
+```bash
+ollama pull llama3
+```
+
+Run the backend:
+
+```bash
+uvicorn main:app --reload
+```
 
 ---
 
-# ⚙️ Technologies Used
+## Frontend
 
-- Python
-- Sentence Transformers
-- FAISS
-- Ollama
-- Llama 3
-- NumPy
-- Regular Expressions
-- Retrieval-Augmented Generation (RAG)
+```bash
+cd frontend
 
----
+npm install
 
-# 🔥 Core Components
-
-### Embedding Engine
-
-- SentenceTransformer embeddings
-- Embedding caching
-- Fast semantic search
+npm run dev
+```
 
 ---
 
-### Vector Database
+# Usage
 
-- FAISS indexing
-- Persistent vector storage
-- Fast nearest-neighbor retrieval
-
----
-
-### Intent Router
-
-Automatically detects user intent:
-
-- Question Answering
-- Literature Review
-- Comparison
-- Summary
-- Research Gap Analysis
+1. Upload one or more research papers.
+2. Wait for indexing to complete.
+3. Ask questions in natural language.
+4. Generate summaries, comparisons, literature reviews, or research gap analyses.
 
 ---
 
-### Conversation Manager
+# Example Questions
 
-Maintains conversational context by:
+```
+Summarize this paper.
 
-- Tracking discussion topics
-- Resolving follow-up questions
-- Reusing previous retrieval results
-- Avoiding unnecessary FAISS searches
+Explain the methodology.
+
+Compare the uploaded papers.
+
+What are the key contributions?
+
+Identify research gaps.
+
+Explain the Transformer architecture.
+
+How does BERT differ from GPT?
+
+Generate a literature review on attention mechanisms.
+```
 
 ---
 
-### Prompt Router
+# Screenshots
 
-Uses specialized prompts for different research tasks instead of relying on a single generic prompt.
+Add screenshots of:
 
----
-
-# 📈 Current Capabilities
-
-- Multiple research paper support
-- Context-aware semantic retrieval
-- Local LLM inference
-- Automatic embedding caching
-- Automatic FAISS index caching
-- Context reuse for follow-up questions
-- Research paper comparison
+- Home page
+- Paper upload
+- Chat interface
 - Literature review generation
-- Research gap detection
-- Intelligent prompt selection
+- Paper comparison
 
 ---
 
-# 🚀 Future Improvements
+# Future Improvements
 
-- Upload PDFs while the assistant is running
-- Automatic indexing of new papers
-- Automatic topic extraction from retrieved papers
+- Multiple chat sessions
+- Chat history
+- Streaming responses
+- Export chat to PDF
+- PDF viewer
 - Citation highlighting
-- Web interface (Streamlit/FastAPI)
-- Research paper recommendations
-- Multi-document synthesis
-- Export answers as PDF/DOCX
+- OCR support for scanned PDFs
+- Cloud deployment
+- User authentication
+- Multi-user support
 
 ---
 
-# 📷 Example
-
-```
-User:
-What is ReAct?
-
-Assistant:
-ReAct is a reasoning and acting framework that combines language model reasoning with task execution...
-
-Sources:
-2210.03629v3.txt
-
---------------------------------------------
-
-User:
-Summarize it.
-
-Assistant:
-(Reuses previous context automatically)
-
---------------------------------------------
-
-User:
-Compare it with Toolformer.
-
-Assistant:
-(Automatically understands "it" refers to ReAct)
-```
-
----
-
-# 👨‍💻 Author
+# Author
 
 **Pritish Dutta**
 
-AI • Machine Learning • Computer Vision • Large Language Models • Retrieval-Augmented Generation
+GitHub: https://github.com/pritish73
+
+LinkedIn: https://www.linkedin.com/in/pritish-dutta-06aa43247/
+
+---
+
+# License
+
+This project is intended for educational and research purposes.
