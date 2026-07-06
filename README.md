@@ -246,18 +246,6 @@ Generate a literature review on attention mechanisms.
 
 ---
 
-# Screenshots
-
-Add screenshots of:
-
-- Home page
-- Paper upload
-- Chat interface
-- Literature review generation
-- Paper comparison
-
----
-
 # Future Improvements
 
 - Multiple chat sessions
