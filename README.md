@@ -98,6 +98,7 @@ Grounded Response + Sources
 AI-Research-Copilot
 │
 ├── backend
+|   ├── requirements.txt
 │   ├── data
 │   ├── papers
 │   ├── main.py
@@ -113,7 +114,6 @@ AI-Research-Copilot
 │   ├── public
 │   └── ...
 │
-├── requirements.txt
 └── README.md
 ```
 
