@@ -74,6 +74,23 @@ def build_database():
     print(f"Chunks Loaded : {len(all_chunks)}")
 
     # -----------------------------------------
+    # No papers uploaded
+    # -----------------------------------------
+
+    if len(chunk_texts) == 0:
+
+        print("\nNo papers found. Creating empty database...")
+
+        embeddings = np.empty((0, 384), dtype=np.float32)
+
+        index = create_faiss_index(embeddings)
+
+        np.save(EMBEDDING_FILE, embeddings)
+        save_index(index, INDEX_FILE)
+
+        return
+
+    # -----------------------------------------
     # Generate embeddings
     # -----------------------------------------
 
@@ -135,12 +152,7 @@ def load_database():
 
     for file in CHUNK_DIR.glob("*.txt"):
 
-        with open(
-            file,
-            "r",
-            encoding="utf-8"
-        ) as f:
-
+        with open(file, "r", encoding="utf-8") as f:
             text = f.read()
 
         chunks = text.split("===== CHUNK")
@@ -151,12 +163,10 @@ def load_database():
 
             if len(chunk) > 50:
 
-                all_chunks.append(
-                    {
-                        "paper": file.name,
-                        "text": chunk
-                    }
-                )
+                all_chunks.append({
+                    "paper": file.name,
+                    "text": chunk
+                })
 
                 chunk_texts.append(chunk)
 
@@ -224,7 +234,6 @@ def get_database():
 def reload_database():
 
     build_database()
-
     load_database()
 
     print("\nDatabase Reloaded Successfully.\n")

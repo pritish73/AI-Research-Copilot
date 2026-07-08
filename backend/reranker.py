@@ -7,7 +7,7 @@ reranker = CrossEncoder(
 )
 
 
-def rerank(query, retrieved_chunks, top_k=8):
+def rerank(query, retrieved_chunks, top_k=4):
 
     if not retrieved_chunks:
         return []

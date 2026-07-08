@@ -51,6 +51,7 @@ function UploadButton({ onUpload }) {
                     accept=".pdf"
                     hidden
                     onChange={uploadFile}
+                    hidden
                 />
 
             </label>

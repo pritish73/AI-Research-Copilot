@@ -1,8 +1,10 @@
 from pathlib import Path
 from database import reload_database
 
-PDF_DIR = Path("papers")
-CHUNK_DIR = Path("chunks")
+BASE_DIR = Path(__file__).resolve().parent
+
+PDF_DIR = BASE_DIR / "papers"
+CHUNK_DIR = BASE_DIR / "data" / "chunks"
 
 
 def remove_paper(paper_name):
@@ -21,6 +23,10 @@ def remove_paper(paper_name):
         deleted.append(chunk_path.name)
 
     print("\nRebuilding database...")
+
+    print("PDF exists:", pdf_path.exists())
+    print("Chunk exists:", chunk_path.exists())
+    print("Deleting:", chunk_path)
 
     reload_database()
 

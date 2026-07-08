@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 function Message({ sender, text, sources }) {
 
@@ -44,7 +45,9 @@ function Message({ sender, text, sources }) {
 
             <div className="bubble">
 
-                <ReactMarkdown>
+                <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                >
                     {displayedText}
                 </ReactMarkdown>
 

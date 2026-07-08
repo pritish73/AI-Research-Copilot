@@ -1,9 +1,21 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import UploadButton from "./UploadButton";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaRegTrashAlt } from "react-icons/fa";
 
-function Sidebar() {
+function Sidebar({
+
+    chats,
+
+    currentChatId,
+
+    setCurrentChatId,
+
+    createNewChat,
+
+    deleteChat
+
+}) {
 
     const [papers, setPapers] = useState([]);
 
@@ -87,7 +99,59 @@ function Sidebar() {
 
         <aside className="sidebar">
 
-            <h2>Papers</h2>
+            <button
+                className="new-chat-btn"
+                onClick={createNewChat}
+            >
+
+                + New Chat
+
+            </button>
+
+            <div className="chat-list">
+
+                {
+
+                    chats.map(chat => (
+
+                        <div
+                            key={chat.id}
+                            className={
+                                currentChatId === chat.id
+                                    ? "chat-item active"
+                                    : "chat-item"
+                            }
+                        >
+
+                            <span
+                                onClick={() => setCurrentChatId(chat.id)}
+                                className="chat-title"
+                            >
+                                {chat.title}
+                            </span>
+
+                            <button
+                                className="chat-delete-btn"
+                                onClick={(e) => {
+
+                                    e.stopPropagation();
+
+                                    deleteChat(chat.id);
+
+                                }}
+                            >
+                                <FaRegTrashAlt />
+                            </button>
+
+                        </div>
+
+                    ))
+
+                }
+
+            </div>
+
+            <hr />
 
             <div className="stats-card">
 

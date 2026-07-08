@@ -9,6 +9,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.responses import FileResponse
 from pathlib import Path
+from database import get_database
 
 app = FastAPI(
     title="Research Copilot API",
@@ -64,27 +65,17 @@ def home():
 
 @app.post("/chat")
 def chat(request: ChatRequest):
-
     return ask_question(request.question)
-
-from core import initialize
 
 @app.get("/stats")
 def stats():
 
-    (
-        all_chunks,
-        _,
-        index,
-        _,
-        _,
-        _
-    ) = initialize()
+    all_chunks, _, _, index = get_database()
 
     return {
         "papers": len(set(chunk["paper"] for chunk in all_chunks)),
         "chunks": len(all_chunks),
-        "vectors": index.ntotal
+        "vectors": index.ntotal if index else 0
     }
 
 import os
