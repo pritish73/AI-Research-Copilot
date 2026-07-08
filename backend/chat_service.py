@@ -1,11 +1,19 @@
 from prompts import *
 from intent_router import detect_intent
-from ollama import chat
+from groq import Groq
+from dotenv import load_dotenv
+import os
 from embedder import generate_embeddings
 from vector_store import search_index
 import time
 from core import initialize
 from reranker import rerank
+
+load_dotenv()
+print("Groq Key:", os.getenv("GROQ_API_KEY"))
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
 
 def ask_question(query):
 
@@ -180,17 +188,25 @@ def ask_question(query):
     # GENERATE ANSWER
     # ==============================================
 
-    response = chat(
-        model="llama3",
+    response = client.chat.completions.create(
+
+        model="llama-3.3-70b-versatile",
+
         messages=[
             {
                 "role": "user",
                 "content": prompt
             }
-        ]
+        ],
+
+        temperature=0.2,
+
+        max_completion_tokens=1024
+
     )
 
-    answer = response["message"]["content"]
+    answer = response.choices[0].message.content
+
     conversation_history.append(
         {
             "role": "assistant",

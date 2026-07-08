@@ -1,21 +1,23 @@
 # Python
 __pycache__/
-*.py[cod]
-*.pyo
+*.pyc
+.env
 
-# Virtual environments
-venv/
-.venv/
-env/
-research_agent/
+# Backend generated data
+backend/data/embeddings.npy
+backend/data/faiss.index
+backend/data/chunks/*
+!backend/data/chunks/.gitkeep
 
-# IDE
+backend/papers/*
+!backend/papers/.gitkeep
+
+# React
+frontend/node_modules/
+frontend/dist/
+
+# VS Code
 .vscode/
-.idea/
-
-# FAISS and Embeddings
-data/embeddings.npy
-data/faiss.index
 
 # OS
 .DS_Store

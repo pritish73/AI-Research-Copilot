@@ -268,6 +268,11 @@ def add_paper(pdf_file):
     # Save chunk file
     # -----------------------------------------
 
+    CHUNK_DIR.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
     chunk_file = CHUNK_DIR / f"{destination.stem}.txt"
 
     with open(
