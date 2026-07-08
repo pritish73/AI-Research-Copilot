@@ -1,209 +1,154 @@
-# Research Copilot
+# AI Research Copilot
 
-An AI-powered Research Assistant that helps users interact with research papers using **Retrieval-Augmented Generation (RAG)**. Upload research papers, ask questions in natural language, generate summaries, compare papers, identify research gaps, and create literature reviews.
+AI Research Copilot is a Retrieval-Augmented Generation (RAG) application that enables users to upload research papers, search across multiple documents, and receive context-aware answers using Large Language Models.
 
-Built with **FastAPI**, **React**, **FAISS**, **Sentence Transformers**, **Cross-Encoder Reranking**, and **Llama 3 (Ollama)**.
+The system combines semantic search, FAISS vector retrieval, CrossEncoder reranking, and Groq's Llama 3.3 model to provide accurate responses grounded in uploaded research papers.
 
 ---
 
 ## Features
 
-- Upload research papers (PDF)
-- Delete uploaded papers
-- Ask questions about uploaded papers
-- Generate paper summaries
-- Compare multiple research papers
-- Generate literature reviews
-- Identify research gaps
-- Conversational memory for follow-up questions
-- Intent-based routing
-- Semantic search using FAISS
-- Cross-Encoder reranking for improved retrieval
+- Upload and manage multiple PDF research papers
+- Automatic PDF text extraction and intelligent chunking
+- Semantic search using Sentence Transformers embeddings
+- Fast similarity search with FAISS
+- CrossEncoder reranking for improved retrieval quality
+- Intent-aware prompting for different research tasks
+- Conversational follow-up questions
+- Multi-document Retrieval-Augmented Generation (RAG)
+- Source citation for every response
 - Modern React frontend
 - FastAPI backend
+- Groq Llama 3.3 integration for high-speed inference
 
 ---
 
-# Architecture
+## Supported Queries
+
+The assistant can answer questions such as:
+
+- Summarize this paper
+- Explain the methodology
+- Compare uploaded papers
+- Find research gaps
+- List the key contributions
+- Suggest future work
+- Answer technical questions about uploaded papers
+
+---
+
+## Architecture
 
 ```
-                 User
-                  │
-                  ▼
-          React Frontend
-                  │
-                  ▼
-           FastAPI Backend
-                  │
-     ┌────────────┼────────────┐
-     ▼            ▼            ▼
-Intent Router   Memory     Paper Manager
-     │
-     ▼
- Vector Search (FAISS)
-     │
-     ▼
- Cross Encoder Reranker
-     │
-     ▼
-  Llama 3 (Ollama)
-     │
-     ▼
- Generated Answer
+User
+   │
+   ▼
+React Frontend
+   │
+   ▼
+FastAPI Backend
+   │
+   ▼
+Intent Detection
+   │
+   ▼
+Sentence Transformer Embeddings
+   │
+   ▼
+FAISS Vector Search
+   │
+   ▼
+CrossEncoder Re-ranking
+   │
+   ▼
+Groq Llama 3.3
+   │
+   ▼
+Grounded Response + Sources
 ```
 
 ---
 
-# Tech Stack
+## Tech Stack
 
 ### Frontend
 
 - React
+- Vite
 - Axios
+- React Markdown
 - CSS
 
 ### Backend
 
 - FastAPI
-- Uvicorn
-- PyMuPDF
-- FAISS
-- NumPy
-
-### AI / ML
-
+- Python
+- Groq API
 - Sentence Transformers
-- Cross Encoder
-- BAAI/bge-base-en-v1.5
-- ms-marco-MiniLM-L-6-v2
-- Ollama
-- Llama 3
+- FAISS
+- PyMuPDF
+- NumPy
+- Scikit-learn
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```
-Research-Copilot/
-
+AI-Research-Copilot
 │
-├── backend/
-│   ├── data/
-│   ├── papers/
-│   ├── chunks/
+├── backend
+│   ├── data
+│   ├── papers
 │   ├── main.py
-│   ├── database.py
-│   ├── vector_store.py
-│   ├── embedder.py
-│   ├── chunker.py
-│   ├── reranker.py
 │   ├── chat_service.py
+│   ├── database.py
+│   ├── reranker.py
+│   ├── vector_store.py
 │   ├── conversation_manager.py
-│   ├── intent_router.py
-│   ├── prompts.py
 │   └── ...
 │
-├── frontend/
-│   ├── src/
-│   ├── components/
-│   ├── pages/
+├── frontend
+│   ├── src
+│   ├── public
 │   └── ...
 │
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
-# RAG Pipeline
+## Installation
 
-```
-PDF Upload
-     │
-     ▼
-Extract Text
-     │
-     ▼
-Chunk Documents
-     │
-     ▼
-Generate Embeddings
-     │
-     ▼
-Store in FAISS
-     │
-     ▼
-User Question
-     │
-     ▼
-Embedding
-     │
-     ▼
-FAISS Retrieval
-     │
-     ▼
-Cross Encoder Reranking
-     │
-     ▼
-Context Selection
-     │
-     ▼
-Llama 3
-     │
-     ▼
-Final Response
+### Clone the repository
+
+```bash
+git clone https://github.com/pritish73/AI-Research-Copilot.git
+
+cd AI-Research-Copilot
 ```
 
 ---
 
-# Installation
-
-## Clone the repository
+### Backend
 
 ```bash
-git clone https://github.com/pritish73/autonomous-research-agent.git
+cd backend
 
-cd autonomous-research-agent
-```
+python -m venv venv
 
----
+# Windows
+venv\Scripts\activate
 
-## Backend
+pip install -r ../requirements.txt
 
-Create the environment:
-
-```bash
-conda create -n research_agent python=3.11
-
-conda activate research_agent
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Start Ollama:
-
-```bash
-ollama serve
-```
-
-Download the Llama 3 model:
-
-```bash
-ollama pull llama3
-```
-
-Run the backend:
-
-```bash
 uvicorn main:app --reload
 ```
 
 ---
 
-## Frontend
+### Frontend
 
 ```bash
 cd frontend
@@ -215,62 +160,68 @@ npm run dev
 
 ---
 
-# Usage
+## Environment Variables
+
+Create a `.env` file inside the `backend` directory.
+
+```env
+GROQ_API_KEY=your_groq_api_key
+```
+
+---
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/health` | Health check |
+| POST | `/upload` | Upload PDF |
+| DELETE | `/paper/{paper}` | Delete paper |
+| GET | `/papers` | List uploaded papers |
+| GET | `/stats` | Database statistics |
+| POST | `/chat` | Ask a question |
+| GET | `/pdf/{paper}` | Retrieve PDF |
+
+---
+
+## How It Works
 
 1. Upload one or more research papers.
-2. Wait for indexing to complete.
-3. Ask questions in natural language.
-4. Generate summaries, comparisons, literature reviews, or research gap analyses.
+2. PDFs are converted into text.
+3. Text is split into semantic chunks.
+4. Embeddings are generated using Sentence Transformers.
+5. FAISS indexes all vectors.
+6. User questions are embedded.
+7. Relevant chunks are retrieved.
+8. CrossEncoder reranks retrieved passages.
+9. Groq Llama 3.3 generates a grounded answer.
+10. Sources are returned with every response.
 
 ---
 
-# Example Questions
+## Future Improvements
 
-```
-Summarize this paper.
-
-Explain the methodology.
-
-Compare the uploaded papers.
-
-What are the key contributions?
-
-Identify research gaps.
-
-Explain the Transformer architecture.
-
-How does BERT differ from GPT?
-
-Generate a literature review on attention mechanisms.
-```
-
----
-
-# Future Improvements
-
-- Multiple chat sessions
-- Chat history
-- Streaming responses
-- Export chat to PDF
-- PDF viewer
-- Citation highlighting
-- OCR support for scanned PDFs
-- Cloud deployment
 - User authentication
-- Multi-user support
+- Persistent chat history
+- Hybrid keyword + semantic search
+- Streaming responses
+- Support for DOCX and TXT files
+- Research paper metadata extraction
+- Citation export
+- Cloud storage integration
 
 ---
 
-# Author
+## Author
 
 **Pritish Dutta**
 
 GitHub: https://github.com/pritish73
 
-LinkedIn: https://www.linkedin.com/in/pritish-dutta-06aa43247/
+LinkedIn: https://www.linkedin.com/in/pritish-dutta-06aa43247
 
 ---
 
-# License
+## License
 
-This project is intended for educational and research purposes.
+This project is licensed under the MIT License.
